@@ -30,4 +30,10 @@ CONTACT
 Please use the live portfolio contact form or update this file with your preferred direct contact details.
 
 LIVE SITE
+https://arlindhyseni.online
+
+FALLBACK DEPLOY URL
+https://arlind-portfolio-cms-1.onrender.com
+
+NOTE
 This CV file is served by the portfolio application and can be replaced later with a PDF version.

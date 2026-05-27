@@ -111,7 +111,28 @@ Pasi ta vendosesh online, hapat e ardhshem jane:
 - ruaj secrets si env vars ne server
 - largo password-et demo
 
-## 6. Rekomandim praktik
+## 6. Deploy ne Render
+
+Ne Render perdor keto `Environment Variables`:
+
+```text
+PORTFOLIO_DATA_MODE=mysql
+PORTFOLIO_DB_URL=jdbc:mysql://HOST:PORT/defaultdb?ssl-mode=REQUIRED
+PORTFOLIO_DB_USER=avnadmin
+PORTFOLIO_DB_PASSWORD=PASSWORD_I_AIVEN
+```
+
+Render zakonisht vendos vet nje variable `PORT`. Aplikacioni tani e lexon automatikisht `PORT` dhe pastaj bie te `PORTFOLIO_PORT` vetem kur po punon lokalisht.
+
+Per databazen cloud mos perdor `schema.sql` nese ke te dhena reale, sepse ai rinderton tabelat. Per Aiven ose databaze live perdor:
+
+```text
+schema.safe.sql
+```
+
+Ky file krijon tabelat qe mungojne dhe shton seed data pa fshire password-in, projektet apo mesazhet ekzistuese.
+
+## 7. Rekomandim praktik
 
 Rruga me e mire per ty tani eshte:
 

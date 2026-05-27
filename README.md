@@ -92,7 +92,7 @@ Ky eshte entry point i aplikacionit.
 
 Detyrat e tij:
 
-- lexon porten nga `PORTFOLIO_PORT`
+- lexon porten nga `PORT` ne cloud ose `PORTFOLIO_PORT` lokalisht
 - zgjedh nese do perdore `in-memory` ose `MySQL`
 - ndez serverin
 
@@ -363,7 +363,9 @@ Fushat:
 
 ## 7. SQL i Plotë i Projektit
 
-Per kete projekt perdor [schema.sql](C:\Users\Arlind Hyseni\OneDrive - Kosovo Research and Education Network (KREN)\Desktop\arlindhyseni\schema.sql).
+Per instalim lokal nga zero perdor [schema.sql](C:\Users\Arlind Hyseni\OneDrive - Kosovo Research and Education Network (KREN)\Desktop\arlindhyseni\schema.sql).
+
+Per databaze live/cloud, si Aiven, perdor [schema.safe.sql](C:\Users\Arlind Hyseni\OneDrive - Kosovo Research and Education Network (KREN)\Desktop\arlindhyseni\schema.safe.sql), sepse ai krijon tabelat qe mungojne pa fshire te dhenat ekzistuese.
 
 Nese do ta ekzekutosh direkt ne `phpMyAdmin`, kjo eshte permbajtja:
 
@@ -533,9 +535,9 @@ jane te njejte.
 
 Password-i i ri nuk ruhet me plain text, por me:
 
-- `sha256$...`
+- `pbkdf2$...`
 
-Kjo eshte me mire se plain text, por ende jo niveli maksimal i sigurise.
+Hasher-i aktual perdor `PBKDF2WithHmacSHA256` me `salt`, qe eshte shume me i mire se nje hash i thjeshte. Per kompatibilitet, projekti ende di te lexoje password-et e vjetra `sha256$...` dhe plain text gjate migrimit.
 
 ### Upload i kufizuar
 
@@ -719,33 +721,43 @@ Ky aplikacion eshte tashme nje `Portfolio CMS` real me:
 
 Pra, jo vetem qe e ke ndertuar nje website personal, por ke ndertuar nje sistem qe te meson menyren si mendohet nje produkt software nga fillimi deri te struktura gati per publikim.
 
-## 21. Custom Domain si `arlindhyseni.dev`
+## 21. Domain Zyrtar: `arlindhyseni.online`
 
-Linku aktual i deploy-it mund te jete nje link teknik i platformes, si p.sh. `onrender.com`. Kjo eshte normale ne fazen e deploy-it te pare.
+Website-i tani ka nje domain zyrtar:
 
-Nese deshiron nje identitet me profesional, atehere hapi i radhes eshte `custom domain`.
+```text
+https://arlindhyseni.online
+```
 
-Shembull:
+Linku teknik i platformes, si p.sh. `onrender.com`, mbetet i dobishem per kontroll dhe debug, por brand-i publik duhet te jete domain-i personal.
 
-- `arlindhyseni.dev`
-- `www.arlindhyseni.dev`
-- `portfolio.arlindhyseni.dev`
+Kjo eshte e rendesishme sepse:
+
+- portfolio duket me serioz ne CV dhe LinkedIn
+- projekti prezantohet si produkt real, jo vetem si demo
+- URL-ja eshte me e lehte per t'u mbajtur mend
+- krijon identitet personal si developer
+
+Shembuj te URL-ve qe mund te perdoren publikisht:
+
+- `https://arlindhyseni.online`
+- `https://www.arlindhyseni.online`
 
 Logjika eshte kjo:
 
-1. regjistron domain-in te nje registrar
-2. shton domain-in ne panelin e platformes ku eshte hostuar aplikacioni
-3. platforma te jep `DNS records`
-4. ato `DNS records` i vendos te kompania ku e ke blere domain-in
-5. pas propagimit, website-i hapet me domain-in tend
+1. domain-i regjistrohet te nje registrar
+2. domain-i shtohet te `Custom Domains` ne Render
+3. Render jep `DNS records`
+4. ato `DNS records` vendosen te paneli i domain-it
+5. pas propagimit, website-i hapet me domain-in personal
 
 Kjo nuk ndryshon kodin kryesor te aplikacionit. Pra aplikacioni yt vazhdon te punoje po njejte, vetem se:
 
-- URL-ja behet me profesionale
-- portfolio duket me serioz ne CV dhe LinkedIn
-- brand-i yt personal behet me i forte
+- URL-ja publike behet me profesionale
+- brand-i personal behet me i forte
+- deploy-i duket me afer nje produkti zyrtar
 
-Ky projekt tashme eshte pergatitur qe kjo kalim te jete i natyrshem, sepse:
+Ky projekt tashme eshte pergatitur per domain zyrtar, sepse:
 
 - ka deploy online funksional
 - ka route publike te qarta
@@ -753,4 +765,10 @@ Ky projekt tashme eshte pergatitur qe kjo kalim te jete i natyrshem, sepse:
 - ka `sitemap.xml`
 - ka `CV download`
 
-Pra, kur te vij momenti per domain-in tend personal, kalimi nuk do te jete nga zero, por nje hap i arsyeshem mbi infrastrukturen qe tashme e ke.
+Nese domain-i kthen `503 Service Unavailable`, kontrollo:
+
+- a eshte shtuar domain-i te Render
+- a jane vendosur sakte `DNS records`
+- a ka perfunduar `SSL certificate`
+- a eshte bere redeploy pas ndryshimeve te fundit
+- a po punon ende linku teknik i Render

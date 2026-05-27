@@ -8,11 +8,19 @@ import com.arlind.portfolio.repository.PortfolioRepository;
 
 public class App {
     public static void main(String[] args) throws Exception {
-        int requestedPort = Integer.parseInt(System.getenv().getOrDefault("PORTFOLIO_PORT", "9191"));
+        int requestedPort = resolvePort();
         PortfolioRepository repository = createRepository();
         PortfolioServer server = startOnAvailablePort(requestedPort, repository);
         int port = server.getPort();
         System.out.println("Portfolio is running at http://localhost:" + port);
+    }
+
+    private static int resolvePort() {
+        String renderPort = System.getenv("PORT");
+        if (renderPort != null && !renderPort.isBlank()) {
+            return Integer.parseInt(renderPort);
+        }
+        return Integer.parseInt(System.getenv().getOrDefault("PORTFOLIO_PORT", "9191"));
     }
 
     private static PortfolioServer startOnAvailablePort(int startingPort, PortfolioRepository repository) throws Exception {
